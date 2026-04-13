@@ -17,7 +17,7 @@ void receive_thread() {
             break;
         }
         buf[n] = '\0';
-        std::cout << "[상대방] " << buf;
+        std::cout << buf;
     }
 }
 
@@ -40,6 +40,11 @@ int main() {
         return 1;
     }
     std::cout << "=== 서버 연결 성공! ===\n";
+	//2. 서버 연결 성공 후, 사용자 이름 입력
+    std::string name;
+    std::cout << "사용자 이름을 입력하세요:";
+    send(sock, name.c_str(), (int)name.size(), 0);
+
 
     // 3. 수신 전담 스레드 시작 (백그라운드)
     std::thread(receive_thread).detach();
